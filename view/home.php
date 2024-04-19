@@ -67,7 +67,7 @@
     </div>
 
     <div>
-       
+
     </div>
 </section>
 
@@ -120,7 +120,7 @@
                                       </div>
 
                                       <del class="mt-1 text-[#929292] text-sm leading-4 text-left">' . number_format($value["gia_sale"], 0, ".", ",") . ' đ</del>
-                                      <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . ' cuốn</div> 
+                                      <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . '</div> 
                                       <div class="mt-2 flex items-center">
                                           <img src="https://file.hstatic.net/200000785527/file/label_img_1_ddaf3d6b446745c9a0052f99fd888209.png"
                                               class="w-[18px] h-[18px]" alt="">
@@ -140,8 +140,8 @@
 <!-- Sản phẩm nổi bật  -->
 <section class="container-content my-5 ">
     <div class="bg-white p-2  rounded-xl">
-        
 
+        <div class="font-bold text-lg p-4 rounded-md">Sản phẩm</div>
         <!--  -->
         <div class="grid md:grid-cols-3 lg:grid-cols-5  grid-cols-2 gap-4">
 
@@ -182,7 +182,7 @@
                         </div>
                 
                         <del class="mt-1 text-[#929292] text-sm leading-4 text-left">' . number_format($value["gia_sale"], 0, ".", ",") . ' đ</del>
-                        <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . ' cuốn</div> 
+                        <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . ' </div> 
                         <div class="mt-2 flex items-center">
                             <img src="https://file.hstatic.net/200000785527/file/label_img_1_ddaf3d6b446745c9a0052f99fd888209.png"
                                 class="w-[18px] h-[18px]" alt="">
@@ -195,7 +195,7 @@
                         <div>
                             <span class="font-bold text-[#FF0000] leading-6 text-left pr-2">' . number_format($value["gia"], 0, ".", ",") . ' đ</span>
                         </div>
-                        <div class="text-xs leading-5 text-[#2F80ED] mt-6">Đã bán ' . $value["luot_ban"] . ' cuốn</div> 
+                        <div class="text-xs leading-5 text-[#2F80ED] mt-6">Đã bán ' . $value["luot_ban"] . ' </div> 
                         ';
                     echo '</div>';
                 }
@@ -232,11 +232,9 @@
                         <div class="w-[330px] px-4">
                             <div class="text-sm leading-5 text-left">' . $value["ten"] . '</div>
                             <div class="text-[12px] text-[#808080] leading-5 text-left">';
-                    foreach ($list_tacgia_sach_spct as $key_tacgia => $value_tacgia) {
-                        echo $value_tacgia["tac_gia_name"] . ", ";
-                    }
+
                     echo '</div>
-                            <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . ' cuốn</div>
+                            <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . '</div>
                         </div>
                     </div>
                 </div> ';
@@ -254,29 +252,25 @@
                                 href="index.php?act=sanphamct&idsp=<?= $list_sach_banchay_home[0]['id']; ?>">
                                 <?php echo $list_sach_banchay_home[0]['ten']; ?>
                             </a> </div>
-                        <div class="text-[#333333] text-sm leading-6 text-left ">Tác giả: <span class="font-medium">
-                                <?php
-                                $list_tacgia_sach_spct = list_tacgia_sach_spct($list_sach_banchay_home[0]['id']);
-                                foreach ($list_tacgia_sach_spct as $key_tacgia => $value_tacgia) {
-                                    echo $value_tacgia["tac_gia_name"] . ", ";
-                                }
-                                ?>
-                            </span> </div>
-                        <div class="text-[#333333] text-sm leading-6 text-left mb-1">Nhà xuất bản: <span
+
+                        <div class="text-[#333333] text-sm leading-6 text-left mt-2 mb-1">Danh mục: <span
                                 class="font-medium">
-                                <?php echo $list_sach_banchay_home[0]['nha_san_xua_name']; ?>
+                                <?php echo $list_sach_banchay_home[0]['danh_muc_name']; ?>
                         </div>
-                        <a href="#" class="font-bold text-[#C92127] leading-6 text-left mt-4">
+                        <a href="#" class="font-bold text-[#C92127] leading-6 text-left ">
                             <?php echo number_format($list_sach_banchay_home[0]['gia'], 0, ".", ","); ?> đ
                         </a>
-                        <div class="text-[#333333] text-sm leading-6 text-left mt-4 line-clamp-5"><span
-                                class="font-medium">Mô tả : </span> <br>
-                            <?php echo $list_sach_banchay_home[0]['mo_ta']; ?>
-                        </div>
+                        <!-- mô tả -->
+                        <?php if (!empty($list_sach_banchay_home[0]['mo_ta'])) { ?>
+                            <div class="text-[#333333] text-sm leading-6 text-left mt-4 line-clamp-5"><span
+                                    class="font-medium">Mô tả : </span> <br>
+                                <?php echo $list_sach_banchay_home[0]['mo_ta']; ?>
+                            </div>
+                        <?php } ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-

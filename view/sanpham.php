@@ -1,35 +1,30 @@
-<div class="container-content bg-white rounded-xl p-2 lg:p-3 mb-3 mt-5">Tất cả sản phẩm </div>
+<div class="container-content bg-white rounded-xl p-2 lg:p-3 mb-3 mt-5">Sản phẩm </div>
 <!-- All sản phẩm -->
 <section class="mt-5 container-content">
     <div class="grid grid-cols-12">
         <div class="md:block col-span-3 hidden pr-3">
             <div class=" rounded-xl">
                 <div class="rounded-xl bg-white p-3 mb-4">
-                <div class="">
-                                    <a id="dropdownButton" class="cursor-pointer w-55 m-7 md:m-0 hover:text-gray-500 
-                            transition duration-400 ease-in">Danh Mục <i class="fa-solid fa-chevron-down"></i></a>
-                                    <ul id="dropdownMenu"
-                                        class="absolute hidden mt-2 py-2 w-55  bg-white rounded-md shadow-md z-10">
-                                        <?php foreach ($listDm as $key => $value) {
-                                            echo '<li><a class="hover:text-gray-500 p-3"  href="index.php?act=sanpham&iddm=' . $value["id"] . '">' . $value["name"] . '</a></li>';
-                                        } ?>
-                                    </ul>
-                                </div>
-
+                    <div class="">
+                        <a id="dropdownButton" class="cursor-pointer w-55 m-7 md:m-0 hover:text-gray-500 
+                            transition duration-400 ease-in">Danh Mục</a>
+                        <div class=" mt-2 py-2 w-55  bg-white rounded-md shadow-md z-10">
+                            <?php
+                            // print_r($listDm);
+                            // die();
+                            foreach ($listDm as $key => $value) {
+                                echo '<a class="hover:text-gray-500 p-3"  href="index.php?act=sanpham&iddm=' . $value["id"] . '">' . $value["name"] . '</a> <br>';
+                            } ?>
+                        </div>
+                    </div>
                 </div>
-
-
             </div>
         </div>
 
         <!--  -->
         <div class="md:col-span-9 col-span-12  mb-3">
-
             <div class="bg-white rounded-xl pt-5 pl-5">
-               
-
                 <div class="grid md:grid-cols-3 lg:grid-cols-4  grid-cols-2 gap-4 mt-5">
-
                     <?php
                     foreach ($listSp as $key => $value) {
                         $giaCu_listSP = $value['gia_sale'];
@@ -63,7 +58,7 @@
                          </div>
                          
                          <del class="mt-1 text-[#929292] text-sm leading-4 text-left">' . number_format($value["gia_sale"], 0, ".", ",") . ' đ</del>
-                         <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . ' cuốn</div> 
+                         <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . '</div> 
                          <div class="mt-2 flex items-center">
                              <img src="https://file.hstatic.net/200000785527/file/label_img_1_ddaf3d6b446745c9a0052f99fd888209.png"
                                  class="w-[18px] h-[18px]" alt="">
@@ -76,13 +71,12 @@
                          <div>
                              <span class="font-bold text-[#FF0000] leading-6 text-left pr-2">' . number_format($value["gia"], 0, ".", ",") . ' đ</span>
                          </div>
-                         <div class="text-xs leading-5 text-[#2F80ED] mt-6">Đã bán ' . $value["luot_ban"] . ' cuốn</div> 
+                         <div class="text-xs leading-5 text-[#2F80ED] mt-6">Đã bán ' . $value["luot_ban"] . '</div> 
                          ';
                             echo '</div>';
                         }
                         echo '  </div>
                  </div>';
-
                     }
                     ?>
                 </div>

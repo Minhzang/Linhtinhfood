@@ -30,7 +30,6 @@
                                                              alt="Product image">
                                                              <div class="flex flex-col">
                                                          <span class="font-medium text-[14px] w-[200px] line-clamp-2">' . $value['ten'] . '</span> 
-                                                        <p class="mt-1 text-[#929292] text-sm leading-4">' . $value['loai_bia'] . '</p>
                                                         </div>
                                                      </div>
                                                  </td>

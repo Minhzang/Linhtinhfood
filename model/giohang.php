@@ -1,7 +1,7 @@
 <?php
 function select_1_sach($id_user)
 {
-    $sql = "SELECT gio_hang_items.id,products.id as id_product,gio_hang_items.loai_bia, gio_hang_items.user_id,gio_hang_items.so_luong,gio_hang_items.gia AS gia, (gio_hang_items.so_luong * gio_hang_items.gia ) 
+    $sql = "SELECT gio_hang_items.id,products.id as id_product, gio_hang_items.user_id,gio_hang_items.so_luong,gio_hang_items.gia AS gia, (gio_hang_items.so_luong * gio_hang_items.gia ) 
     AS thanhtien, products.ten ,products.img AS hinhAnh 
     FROM gio_hang_items 
     JOIN products ON products.id=gio_hang_items.product_id 
@@ -16,10 +16,10 @@ function delete_gio_hang($id)
     $sql = "DELETE FROM gio_hang_items WHERE id = $id";
     pdo_query($sql);
 }
-function add_gio_hang($id_user, $product_id, $so_luong, $gia, $loai_bia)
+function add_gio_hang($id_user, $product_id, $so_luong, $gia)
 {
-    $sql = "INSERT INTO gio_hang_items(user_id, product_id, so_luong, gia,loai_bia) 
-     VALUES ('$id_user','$product_id','$so_luong','$gia','$loai_bia')";
+    $sql = "INSERT INTO gio_hang_items(user_id, product_id, so_luong, gia) 
+     VALUES ('$id_user','$product_id','$so_luong','$gia')";
     // echo $sql;
     // die;
     pdo_execute($sql);
@@ -32,12 +32,11 @@ function tong_gia($id_user)
     $tongGia = pdo_query_one($sql);
     return $tongGia;
 }
-function update_SanPham_Da_co_cart($id_user, $so_luong, $id_product, $loai_bia, $gia)
+function update_SanPham_Da_co_cart($id_user, $so_luong, $id_product, $gia)
 {
     $sql = "UPDATE gio_hang_items 
     SET so_luong = $so_luong 
     WHERE product_id = $id_product 
-    AND loai_bia = '$loai_bia' 
     AND gio_hang_items.user_id = $id_user";
     pdo_execute($sql);
 }
@@ -49,10 +48,10 @@ function insert_donHang_id($customer_id, $status, $tong_tien, $payment, $ghi_chu
     $e = pdo_execute_return_lastInsertId($sql);
     return $e;
 }
-function insert_gio_hang_item_thanhtoan($so_luong, $product_id, $loai_bia, $user_id, $gio_hang_id, $thanhtien)
+function insert_gio_hang_item_thanhtoan($so_luong, $product_id, $user_id, $gio_hang_id, $thanhtien)
 {
-    $sql = "INSERT INTO gio_hang_item_thanhtoan(so_luong, product_id, loai_bia, user_id, gio_hang_id,Gia_tien_Pro_id) 
-    VALUES ('$so_luong','$product_id','$loai_bia','$user_id','$gio_hang_id','$thanhtien')";
+    $sql = "INSERT INTO gio_hang_item_thanhtoan(so_luong, product_id, user_id, gio_hang_id,Gia_tien_Pro_id) 
+    VALUES ('$so_luong','$product_id','$user_id','$gio_hang_id','$thanhtien')";
     $e = pdo_execute_return_lastInsertId($sql);
     return $e;
 }
@@ -85,7 +84,7 @@ function select_ChiTietDonHang_where_id($id)
 }
 function select_gio_hang_item_thanhtoan_where_id($id)
 {
-    $sql = "SELECT gio_hang_item_thanhtoan.*, products.ten, products.img AS hinhAnh, products.id  FROM `gio_hang_item_thanhtoan`
+    $sql = "SELECT gio_hang_item_thanhtoan.*, products.ten, products.img AS hinhAnh, products.id  as id_sp  FROM gio_hang_item_thanhtoan
     JOIN products on products.id = gio_hang_item_thanhtoan.product_id
         WHERE gio_hang_item_thanhtoan.gio_hang_id  = $id
         ORDER BY gio_hang_item_thanhtoan.id desc";

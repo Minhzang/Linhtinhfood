@@ -7,75 +7,35 @@ include ("./model/sach.php");
 include ("./model/taiKhoan.php");
 include ("./model/tacGia.php");
 include ("./model/giohang.php");
-// include ("../model/binhLuan.php");
-// include ("../model/sach.php");
-
-function execPostRequest($url, $data)
-{
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt(
-        $ch,
-        CURLOPT_HTTPHEADER,
-        array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($data)
-        )
-    );
-    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-    //execute post
-    $result = curl_exec($ch);
-    //close connection
-    curl_close($ch);
-    return $result;
-}
 
 
 $listDm = list_danhmuc("");
-$listTg = list_tac_gia("");
-$listSp_home = list_sach("", "", "");
+$listSp_home = list_sach("", "");
 $list_sach_flashSale_home = list_sach_flashSale_home();
 $list_sach_banchay_home = list_sach_banchay_home();
 $list_Top_6_Sach_home = list_Top_6_Sach_home();
 
 
-// if (!isset($_SESSION['myCart'])) {
-//     $_SESSION['myCart'] = [];
-// }
-// $countProducts = count($_SESSION['myCart']);
-
 include ("view/header.php");
 if (isset($_GET["act"])) {
     $act = $_GET["act"];
     switch ($act) {
-        case 'tintuc':
-            include ("./view/tintuc.php");
-            break;
         case 'lienhe':
             include ("./view/lienhe.php");
             break;
         case 'sanpham':
-            // if ((isset($_POST["kyw"])) && ($_POST["kyw"]) != "") {
-            //     $kyw = $_POST["kyw"];
-            // } else {
-            //     $kyw = "";
-            // }
             if ((isset($_GET["iddm"])) && ($_GET["iddm"]) > 0) {
                 $danh_muc_id = $_GET["iddm"];
-                // $searchSP = $_POST["kyw"];
             } else {
                 $danh_muc_id = "";
             }
-            // $listSp = list_sach($danh_muc_id);   
-            $listSp = list_sach($danh_muc_id, "", "");
+            $listSp = list_sach($danh_muc_id, "");
+            $listDm = list_danhmuc("");
 
             include ("view/sanpham.php");
             break;
         // lọc ở sản phẩm
-        case 'sach':
+        case 'sanPham':
             if (isset($_POST['submit'])) {
                 $searchSP = isset($_POST["searchSP"]) ? $_POST["searchSP"] : "";
                 $danh_muc_id = isset($_POST["danh_muc_id"]) ? $_POST["danh_muc_id"] : "";
@@ -104,7 +64,6 @@ if (isset($_GET["act"])) {
                 $kyw = "";
             }
             $listSp = list_sach(0, $kyw);
-
             include ("view/sanpham.php");
             break;
 
@@ -116,7 +75,6 @@ if (isset($_GET["act"])) {
 
 
                 $sach_cungLoai = Select_sach_cungLoai($id, $sanPhamCt["danh_muc_id"]);
-                $bien_the_bia = select_loai_bia_theo_sach($id);
             } else {
                 include ("view/home.php");
             }
@@ -146,11 +104,6 @@ if (isset($_GET["act"])) {
                     $isCheck = false;
                     $errDangKyemail = 'Email đã tồn tại trong hệ thống, vui lòng sử dụng email khác.';
                 }
-                // if (empty($email)) {
-                //     $isCheck = false;
-                //     $errDangKyemail = "Cần nhập email";
-                // }
-
                 if (!$name) {
                     $isCheck = false;
                     $errDangKyuser = "Cần nhập tên đăng nhập";
@@ -299,49 +252,24 @@ if (isset($_GET["act"])) {
                 $gia = $_POST['gia'];
                 $so_luong = $_POST['so_luong'];
 
-                $selectedLoaiBia = isset($_POST['loai_bia']) ? $_POST['loai_bia'] : null;
-                $loai_bia = "";
-                $muc_tang = 0;
-                $gia_sau_bien_the = 0;
-                if (isset($selectedLoaiBia)) {
-                    $selectedLoaiBia = trim($selectedLoaiBia, "[]"); // Loại bỏ các ký tự "[" và "]"
-                    $arr = explode(",", $selectedLoaiBia);
-                    // print_r($arr);
-                    // die;
-
-                    if (is_array($arr)) {
-                        if (isset($arr[1])) {
-                            $loai_bia = $arr[1];
-                        } else {
-                            $loai_bia = '';
-                        }
-                        $muc_tang = floatval($arr[0]);
-                    } else {
-                        $muc_tang = 0;
-                        $loai_bia = '';
-                    }
-                } else {
-                    $muc_tang = 0;
-                    $loai_bia = '';
-                }
                 if (isset($_SESSION['user']['id'])) {
                     // Người dùng đã đăng nhập, cho phép thêm mới vào giỏ hàng
                     $gioHang = select_1_sach($_SESSION['user']['id']);
 
                     $product_exists = false;
                     foreach ($gioHang as &$item) {
-                        if ($item['id_product'] == $product_id && $item['loai_bia'] == $loai_bia) {
+                        if ($item['id_product'] == $product_id) {
                             $product_exists = true;
                             $item['so_luong'] += $so_luong;
 
-                            update_SanPham_Da_co_cart($_SESSION['user']['id'], $item['so_luong'], $item['id_product'], $loai_bia, $gia);
+                            update_SanPham_Da_co_cart($_SESSION['user']['id'], $item['so_luong'], $item['id_product'], $gia);
                             break;
                         }
                     }
                     if (!$product_exists) {
 
-                        $gia_sau_bien_the = floatval($gia) + $muc_tang;
-                        add_gio_hang($_SESSION['user']['id'], $product_id, $so_luong, $gia_sau_bien_the, $loai_bia);
+                        // $gia_sau_bien_the = floatval($gia) + $muc_tang;
+                        add_gio_hang($_SESSION['user']['id'], $product_id, $so_luong, $gia);
                     }
                 } else {
                     // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
@@ -365,7 +293,6 @@ if (isset($_GET["act"])) {
                 $email = $_POST['email'];
                 $dia_chi = $_POST['dia_chi'];
                 $ghi_chu = $_POST['ghi_chu'];
-                // $payment = $_POST['payment_method']; // cod vn pay
                 $payment = 'COD';
                 $customer_id = $_SESSION['user']['id'];
                 $created_at = date('Y-m-d H:i:s');
@@ -373,135 +300,39 @@ if (isset($_GET["act"])) {
                 $tongGia = tong_gia($_SESSION['user']['id']);
 
                 $status = 1; // trạng thái đơn hàng
+                $isSuccessful = false; // Khởi tạo biến cờ
                 $id_DH = insert_donHang_id($customer_id, $status, $tongGia['tong'], $payment, $ghi_chu, $name, $phone, $email, $dia_chi, $created_at);
 
-                // Lấy dữ liệu từ $gioHang và chèn vào bảng gio_hang_item_thanhtoan
-                $gioHang = select_1_sach($_SESSION['user']['id']);
-                $isSuccessful = true;
+                if ($id_DH !== false) {
+                    $isSuccessful = true; // Đánh dấu thành công nếu $id_DH khác false
 
-                foreach ($gioHang as $key => $value) {
-                    $id_gio_hang_items = $value['id'];
-                    $so_luong = $value['so_luong'];
-                    $product_id = $value['id_product'];
-                    $loai_bia = $value['loai_bia'];
-                    $thanhtien = $value['thanhtien'];
-                    $is_IdProduct_DH = insert_gio_hang_item_thanhtoan($so_luong, $product_id, $loai_bia, $_SESSION['user']['id'], $id_DH, $thanhtien);
-                    if (isset($is_IdProduct_DH)) {
-                        delete_sanPham_cart($id_gio_hang_items);
+                    // Lấy dữ liệu từ $gioHang và chèn vào bảng gio_hang_item_thanhtoan
+                    $gioHang = select_1_sach($_SESSION['user']['id']);
+
+                    foreach ($gioHang as $key => $value) {
+                        $id_gio_hang_items = $value['id'];
+                        $so_luong = $value['so_luong'];
+                        $product_id = $value['id_product'];
+                        $thanhtien = $value['thanhtien'];
+                        $is_IdProduct_DH = insert_gio_hang_item_thanhtoan($so_luong, $product_id, $_SESSION['user']['id'], $id_DH, $thanhtien);
+
+                        if ($is_IdProduct_DH === false) {
+                            $isSuccessful = false; // Đặt cờ thành false nếu bất kỳ thao tác nào thất bại
+                            break; // Thoát khỏi vòng lặp
+                        } else {
+                            delete_sanPham_cart($id_gio_hang_items);
+                        }
+                    }
+
+                    if ($isSuccessful) {
+                        header("Location: index.php?act=thankyou&id_DH=$id_DH");
+                        exit();
                     } else {
-                        $isSuccessful = false; // Set the flag to false if any operation fails
-                        break; // Exit the loop
+                        echo "Payment failed. Please try again.";
                     }
                 }
-                if ($isSuccessful) {
-                    header("Location: index.php?act=thankyou&id_DH=$id_DH");
-                    exit();
-                } else {
-                    echo "Payment failed. Please try again.";
-                }
-
-            } else if (isset($_POST['redirect'])) {
-
-                $name = $_POST['name'];
-                $phone = $_POST['phone'];
-                $email = $_POST['email'];
-                $dia_chi = $_POST['dia_chi'];
-                $ghi_chu = $_POST['ghi_chu'];
-
-                // $payment = $_POST['payment_method']; // cod vn pay
-                $payment = 'VNPay';
-                $customer_id = $_SESSION['user']['id'];
-                $created_at = date('Y-m-d H:i:s');
-
-                $tongGia = tong_gia($_SESSION['user']['id']);
-
-                $status = 1; // trạng thái đơn hàng
-                $id_DH = insert_donHang_id($customer_id, $status, $tongGia['tong'], $payment, $ghi_chu, $name, $phone, $email, $dia_chi, $created_at);
-
-                $gioHang = select_1_sach($_SESSION['user']['id']);
-                $isSuccessful = true;
-
-                foreach ($gioHang as $key => $value) {
-                    $id_gio_hang_items = $value['id'];
-                    $so_luong = $value['so_luong'];
-                    $product_id = $value['id_product'];
-                    $loai_bia = $value['loai_bia'];
-                    $is_IdProduct_DH = insert_gio_hang_item_thanhtoan($so_luong, $product_id, $loai_bia, $_SESSION['user']['id'], $id_DH);
-                    if (isset($is_IdProduct_DH)) {
-                        delete_sanPham_cart($id_gio_hang_items);
-                    } else {
-                        $isSuccessful = false;
-                        break;
-                    }
-                }
-                if ($id_DH) {
-                    // Lưu thành công
-                    // Tiếp tục xử lý chuyển hướng đến trang thanh toán của VNPAY
-                    include ("./vnpay_php/vnpay_create_payment.php");
-                } else {
-                    // Lưu thất bại
-                    echo "Failed to save order data. Please try again.";
-                }
-
-            } else if (isset($_POST['payUrl'])) {// momo
-
-                $tongGia = tong_gia($_SESSION['user']['id']);
-
-                $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-
-
-                $partnerCode = 'MOMOBKUN20180529';
-                $accessKey = 'klm05TvNBzhg7h7j';
-                $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-                $orderInfo = "Thanh toán qua MoMo";
-                $amount = "10000";
-                $orderId = rand(00, 99999); // mã giao dịch
-                $redirectUrl = "http://localhost:81/da1/Book_Store/index.php?act=thankyou";
-                $ipnUrl = "http://localhost:81/da1/Book_Store/index.php?act=thankyou";
-                $extraData = "";
-
-
-                if (!empty($_POST)) {
-                    $partnerCode = $partnerCode;
-                    $accessKey = $accessKey;
-                    $serectkey = $secretKey;
-                    $orderId = $orderId; // Mã đơn hàng
-                    $orderInfo = $orderInfo;
-                    $amount = $amount;
-                    $ipnUrl = $ipnUrl;
-                    $redirectUrl = $redirectUrl;
-                    $extraData = $extraData;
-
-                    $requestId = time() . "";
-                    $requestType = "payWithATM";
-                    // $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
-
-                    //before sign HMAC SHA256 signature
-                    $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
-                    $signature = hash_hmac("sha256", $rawHash, $serectkey);
-                    $data = array(
-                        'partnerCode' => $partnerCode,
-                        'partnerName' => "Test",
-                        "storeId" => "MomoTestStore",
-                        'requestId' => $requestId,
-                        'amount' => $amount,
-                        'orderId' => $orderId,
-                        'orderInfo' => $orderInfo,
-                        'redirectUrl' => $redirectUrl,
-                        'ipnUrl' => $ipnUrl,
-                        'lang' => 'vi',
-                        'extraData' => $extraData,
-                        'requestType' => $requestType,
-                        'signature' => $signature
-                    );
-                    $result = execPostRequest($endpoint, json_encode($data));
-                    $jsonResult = json_decode($result, true);  // decode json
-
-                    // 0
-                    header('Location: ' . $jsonResult['payUrl']);
-                }
-                // 1
             }
+
             $gioHang = select_1_sach($_SESSION['user']['id']);
             $tongGia = tong_gia($_SESSION['user']['id']);
             include ('./view/thanhtoan.php');

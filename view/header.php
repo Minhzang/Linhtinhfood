@@ -25,6 +25,7 @@
 </head>
 
 <!-- font-[Poppins] -->
+
 <body class="">
     <div class="bg-white sticky z-[11] top-0 w-full " style="box-shadow: 0 1px 3px gray">
         <div class="swiper mySwiper2 bg-[#C92127]">
@@ -37,14 +38,12 @@
                             tặng hấp dẫn. Mua hàng ngay đừng bỏ lỡ.</span></a></div>
             </div>
         </div>
-        <div>
 
+        <div>
             <div>
                 <nav class="container-content flex justify-between items-center ">
                     <div>
-                        <a href="index.php"><img class="w-16 cursor-pointer"
-                                src="https://cdn-icons-png.flaticon.com/512/5968/5968204.png" alt="..."></a>
-
+                        <a href="index.php"><img class="w-16 cursor-pointer" src="./image/view/logo.jpg" alt="..."></a>
                     </div>
                     <div
                         class="nav-links duration-500 md:static absolute bg-white  md:min-h-fit min-h-[60vh] left-0 top-[-100%] md:w-auto flex items-center px-5">
@@ -53,13 +52,7 @@
                                 <a class="hover:text-gray-500" href="index.php">Trang chủ</a>
                             </li>
                             <li>
-                                <a class="hover:text-gray-500" href="index.php?act=sach">Sản phẩm</a>
-                            </li>
-                            <!-- <li>
-                                <a class="hover:text-gray-500" href="index.php?act=gioithieu ">Giới thiệu</a>
-                            </li> -->
-                            <li>
-                                <a class="hover:text-gray-500" href="index.php?act=tintuc">Tin tức</a>
+                                <a class="hover:text-gray-500" href="index.php?act=sanpham">Sản phẩm</a>
                             </li>
                             <li>
                                 <div class="">
@@ -88,13 +81,9 @@
                         <div>
                             <a href="index.php?act=giohang" class="flex flex-col justify-center items-center">
                                 <i class="fa-solid fa-cart-shopping"></i>
-                                <!-- <div class="text-xs mt-1">Giỏ hàng</div> -->
                             </a>
                         </div>
                         <div>
-                            <!-- <a href="#" class="flex flex-col justify-center items-center"><i class="fa-regular fa-user"></i>
-                        <div class="text-xs mt-1">Đăng nhập</div>
-                    </a> -->
 
                             <div class="relative inline-block text-left">
                                 <div>
@@ -114,7 +103,6 @@
                                                     alt="Rounded avatar">
                                             <?php } ?>
                                         <?php } ?>
-                                        <!-- <div class="text-xs mt-1">Đăng nhập</div> -->
                                     </button>
                                 </div>
 

@@ -86,8 +86,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                 include ("danhMuc/danhmuc.php");
                 break;
 
-        
-
             //Bình luận
             case 'comment':
                 if (isset($_POST['submit'])) {
@@ -124,7 +122,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
             case 'addSach':
                 if (isset($_POST['submit'])) {
                     $ErrtenSanPham = "";
-                    $ErrnhaSanXuatId = "";
                     $ErrdanhMucId = "";
                     $Errgia = "";
                     $ErrmoTa = "";
@@ -133,7 +130,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                     $isCheck = true;
 
                     $tenSanPham = $_POST['name'];
-                    $nhaSanXuatId = $_POST['nha_san_xuat_id'];
                     $danhMucId = $_POST['danh_muc_id'];
                     $gia = $_POST['gia'];
                     $giaSale = $_POST['gia_sale'];
@@ -148,11 +144,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                         $ErrtenSanPham = "Tên sản phẩm không được bỏ trống.";
                     }
 
-                    if (empty($nhaSanXuatId)) {
-                        $isCheck = false;
-                        $ErrnhaSanXuatId = "Vui lòng chọn Nhà Xuất Bản.";
-                    }
-
                     if (empty($danhMucId)) {
                         $isCheck = false;
                         $ErrdanhMucId = "Vui lòng chọn Danh Mục.";
@@ -162,17 +153,14 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                         $isCheck = false;
                         $Errgia = "Giá bán không được bỏ trống.";
                     }
-                    if (empty($moTa)) {
-                        $isCheck = false;
-                        $ErrmoTa = "Cần nhập Mô tả Sản phẩm";
-                    }
+                
                     if (empty($filename)) {
                         $isCheck = false;
                         $Errimg = "Cần thêm ảnh Sản phẩm";
                     }
                     if ($isCheck) {
                         move_uploaded_file($_FILES["img"]["tmp_name"], $target_file);
-                        $sachId = insert_sach($tenSanPham, $danhMucId, $nhaSanXuatId, $filename, $gia, $giaSale, $moTa, $created_at);
+                        $sachId = insert_sach($tenSanPham, $danhMucId, $filename, $gia, $giaSale, $moTa, $created_at);
                         $thongbao = "Thêm thành công!";
                     }
 
@@ -187,8 +175,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                         $ErrTg = "Cần nhập Tên Tác giả";
                     }
                 }
-                $listTg = list_tac_gia("");
-                $listNxb = list_NhaXuatBan("");
                 $listDm = list_danhmuc("");
 
                 include ("sach/add.php");
@@ -198,9 +184,7 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                 if (isset($_GET["id"]) && ($_GET["id"] > 0)) {
                     $id = $_GET["id"];
 
-                    $listTg = list_tac_gia("");
                     $listDm = list_danhmuc("");
-                    $listNxb = list_NhaXuatBan("");
                     $SP = select_spct($id);
                 }
                 include ("sach/updateSp.php");
@@ -209,10 +193,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
             case 'updateSp':
                 if (isset($_POST['submit'])) {
                     $isCheck = true;
-
                     $id = $_POST["id"];
                     $tenSanPham = $_POST['name'];
-                    $nhaSanXuatId = $_POST['nha_san_xuat_id'];
                     $danhMucId = $_POST['danh_muc_id'];
                     $gia = $_POST['gia'];
                     $giaSale = $_POST['gia_sale'];
@@ -221,7 +203,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                     $filename = $hinhAnh["name"];
 
                     // Xóa tất cả các tác giả liên quan đến sản phẩm
-                    delete_tacgia_by_sanpham($id);
                     if (empty($tenSanPham)) {
                         $isCheck = false;
                         $ErrtenSanPham = "Tên sản phẩm không được bỏ trống.";
@@ -230,35 +211,20 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                         $isCheck = false;
                         $Errgia = "Giá bán không được bỏ trống.";
                     }
-                    if (empty($moTa)) {
-                        $isCheck = false;
-                        $ErrmoTa = "Cần nhập Mô tả Sản phẩm";
-                    }
                     if ($isCheck) {
                         if ($filename) {
                             $filename = time() . $filename;
                             $dir = "../uploads/$filename";
 
                             if (move_uploaded_file($hinhAnh["tmp_name"], $dir)) {
-                                update_sanpham_coHinhAnh($id, $tenSanPham, $danhMucId, $nhaSanXuatId, $filename, $gia, $giaSale, $moTa);
+                                update_sanpham_coHinhAnh($id, $tenSanPham, $danhMucId, $filename, $gia, $giaSale, $moTa);
                             }
                         }
-                        update_sanpham_KhongHinhAnh($id, $tenSanPham, $nhaSanXuatId, $danhMucId, $gia, $giaSale, $moTa);
+                        update_sanpham_KhongHinhAnh($id, $tenSanPham, $danhMucId, $gia, $giaSale, $moTa);
 
-                    }
-                    // Thêm mới các tác giả cho sản phẩm
-                    if (!empty($_POST['tacGia_id'])) {
-                        $tacGiaIds = $_POST['tacGia_id'];
-                        foreach ($tacGiaIds as $tacGiaId) {
-                            insert_sach_tac_gia($id, $tacGiaId);
-                        }
-                    } else {
-                        $isCheck = false;
-                        $ErrTg = "Cần nhập Tên Tác giả";
                     }
                 }
                 $listDm = list_danhmuc("");
-                $listTg = list_tac_gia("");
                 $list_Sach = list_sach("", "");
 
                 include ("sach/sach.php");
@@ -273,28 +239,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                 include ("sach/sach.php");
                 break;
 
-            // thêm bìa sách
-            case 'BiaSach':
-                if (isset($_GET['id'])) {
-                    $id = $_GET['id'];
-                }
-                include ("Bia_sach/add.php");
-                break;
-
-            case 'insertBia':
-                if (isset($_POST['submit'])) {
-                    $id_sach = $_POST['id'];
-                    $loai_bia = $_POST['loai_bia'];
-                    $muc_tang = $_POST['muc_tang'];
-                    // Ví dụ:
-                    $bia_id = insert_bia_bienthe($loai_bia, $muc_tang);
-                    // thêm vào bảng trung gian
-                    insert_trung_gian_bia_product($id_sach, $bia_id);
-                }
-                $list_Sach = list_sach("", "");
-
-                include ("sach/sach.php");
-                break;
             case 'account':
                 if (isset($_POST['submit'])) {
                     $searchName = $_POST["searchName"];

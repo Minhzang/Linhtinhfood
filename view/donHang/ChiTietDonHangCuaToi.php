@@ -22,7 +22,6 @@
                             <div>
                                 <h3 class="text-base text-white line-clamp-2">' . $value['ten'] . '</h3>
                                 <ul class="text-xs text-white space-y-3 mt-4">
-                                    <li class="flex flex-wrap gap-4">Loại: <span class="ml-auto">' . $value['loai_bia'] . '</span></li>
                                     <li class="flex flex-wrap gap-4">Số lượng <span class="ml-auto">' . $value['so_luong'] . '</span></li>
                                     <li class="flex flex-wrap gap-4">Tổng giá <span class="ml-auto ">' . number_format($value["Gia_tien_Pro_id"], 0, ".", ",") . ', đ</span></li>
                                 </ul>

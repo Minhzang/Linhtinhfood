@@ -1,15 +1,15 @@
-<section class="bg-white ">
-    <div class="container px-6 py-12 mx-auto">
+<section class="bg-white  ">
+    <div class="container-content px-6 py-12 mx-auto">
         <div>
             <p class="font-medium text-blue-500 ">Liên hệ chúng tôi</p>
 
-            <h1 class="mt-2 text-2xl font-semibold text-gray-800 md:text-3xl ">Liên lạc</h1>
+            <h1 class="mt-2 text-2xl font-semibold text-gray-800 md:text-3xl ">Liên Hệ </h1>
 
             <p class="mt-3 text-gray-500 ">Đội ngũ thân thiện của chúng tôi rất mong nhận được phản hồi từ bạn.</p>
         </div>
 
-        <div class="grid grid-cols-1 gap-12 mt-10 lg:grid-cols-3">
-            <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-1">
+        <div class="grid grid-cols-1 gap-12 mt-10 lg:grid-cols-4">
+            <div class="grid gap-12 sm:grid-cols-2 lg:col-span-2">
                 <div>
                     <span class="inline-block p-3 text-blue-500 rounded-full bg-blue-100/80">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -56,9 +56,32 @@
             </div>
 
             <div class="overflow-hidden rounded-lg lg:col-span-2 h-96 lg:h-auto">
-                <iframe width="100%" height="100%" frameborder="0" title="map" marginheight="0" marginwidth="0"
-                    scrolling="no"
-                    src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"></iframe>
+                <div>
+                    <h1 class="font-bold text-xl leading-6 mt-1 mb-4 text-left">Liên hệ với chúng tôi </h1>
+                    <form action="#">
+                        <div class="grid grid-cols-12">
+                            <div class="lg:col-span-6 col-span-12 px-[10px] w-full h-[55px]">
+                                <input type="text" id="" aria-describedby="helper-text-explanation"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Họ và tên...">
+                            </div>
+                            <div class="lg:col-span-6 col-span-12 px-[10px] w-full h-[55px]">
+                                <input type="email" id="" aria-describedby="helper-text-explanation"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    placeholder="Địa chỉ email">
+                            </div>
+                        </div>
+                        <div class="px-[10px]">
+                            <textarea id="message" rows="4"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Nội dung..."></textarea>
+                        </div>
+                        <div class="text-end mt-5 mr-3">
+                            <input type="submit" name="submit" value="Gửi"
+                                class="bg-red-500 text-white text-sm py-2 px-4 rounded ">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

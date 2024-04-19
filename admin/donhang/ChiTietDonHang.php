@@ -22,31 +22,23 @@
                             <div>
                                 <h3 class="text-base text-white line-clamp-2">' . $value['ten'] . '</h3>
                                 <ul class="text-xs text-white space-y-3 mt-4">
-                                    <li class="flex flex-wrap gap-4">Loại: <span class="ml-auto">' . $value['loai_bia'] . '</span></li>
                                     <li class="flex flex-wrap gap-4">Số lượng <span class="ml-auto">' . $value['so_luong'] . '</span></li>
                                     <li class="flex flex-wrap gap-4">Tổng giá <span class="ml-auto ">' . number_format(floatval($value['Gia_tien_Pro_id']), 0, ".", ",") . 'đ</span></li>
                                 </ul>
                             </div>
-                        </div>
-                                ';
+                        </div>';
                                         }
                                     }
                                     ?>
                                 </div>
                             </div>
-                            <div class="absolute left-0 bottom-0 bg-[#444] w-full p-4">
-                                <h4 class="flex flex-wrap gap-4 text-base text-white ">Tổng cộng <span class="ml-auto">
-                                        <?php
-                                        echo $list_order_cart_where_id['tong_tien'];
-                                        ?>
-                                    </span></h4>
-                            </div>
+                          
                         </div>
                     </div>
                     <div class="md:w-1/4">
                         <form action="index.php?act=updateChiTietDonHang" method="post">
                             <div class="bg-white rounded-lg shadow-md p-6">
-                                <h2 class="text-lg font-semibold mb-4">Mã đơn hàng : 
+                                <h2 class="text-lg font-semibold mb-4">Mã đơn hàng :
                                     <?php echo $list_order_cart_where_id["id"] ?>
                                 </h2>
 

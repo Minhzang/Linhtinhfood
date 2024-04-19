@@ -69,11 +69,11 @@ if (isset($_SESSION['user']) && (count($_SESSION['user']) > 0)) { ?>
         <input type="hidden" name="idSp" value="<?= $idSp ?>">
         <label for="chat" class="sr-only">Your message</label>
         <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50">
-            <label for="file-upload" disabled
+            <!-- <label for="file-upload" disabled
                 class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 ">
                 <i class="fa-regular fa-image"></i>
                 <span class="sr-only">Upload image</span>
-            </label>
+            </label> -->
             <input id="file-upload" type="file" style="display: none;" />
             <textarea id="chat" rows="2" name="noidung"
                 class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "

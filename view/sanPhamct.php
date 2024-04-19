@@ -20,31 +20,9 @@
 
                     <!-- <h2 class="text-2xl font-bold text-gray-800  mb-2">Tên sách</h2> -->
                     <h2 class=" font-bold mb-4 text-red-600">
-
                         <?php echo '<input type="hidden" name="id" value="' . $sanPhamCt["id"] . '" readonly >';
                         echo $sanPhamCt["ten"]; ?>
                     </h2>
-                    <div class="flex mb-4">
-                        <?php
-                        if (!empty($list_tacgia_sach_spct)) {
-                            echo ' <div class="mr-4">';
-                            echo '<span class="text-gray-700">Tác giả:</span>';
-                            echo '<span class="text-gray-600 font-bold">';
-                            foreach ($list_tacgia_sach_spct as $key => $value) {
-                                echo $value["tac_gia_name"], " ,";
-                            }
-                            echo '</div>';
-                            echo '</span>';
-                        } else {
-                            // Ẩn div tác giả
-                        } ?>
-                        <div>
-                            <span class=" text-gray-700 ">Nhà xuất bản:</span>
-                            <span class="text-gray-600 font-bold">
-                                <?php echo $sanPhamCt["nha_san_xua_name"]; ?>
-                            </span>
-                        </div>
-                    </div>
                     <div class="flex mb-4">
                         <div class="mr-4">
                             <span class=" text-gray-700 ">Danh mục:</span>
@@ -72,27 +50,7 @@
                         }
                         ?>
                     </div>
-                    <?php if (!empty($bien_the_bia)): ?>
-                        <div class="mb-4">
-                            <span class="font-bold text-gray-700">Loại Hàng:</span>
-                            <div class="flex items-center mt-2">
-                                <div>
-                                    <?php foreach ($bien_the_bia as $Check): ?>
-                                        <?php extract($Check); ?>
-                                        <label>
-                                            <input type="radio" name="loai_bia"
-                                                value="<?php echo $Check['muc_tang'] . ',' . $Check['loai_bia']; ?>"
-                                                onchange="myFunction()" <?php if ($Check['muc_tang'] == 0) {
-                                                    echo ' checked="checked"';
-                                                } ?>
-                                                class="bg-gray-300 text-gray-700 dark:text-white py-2 ml-3 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">
-                                            <?php echo $loai_bia; ?>
-                                        </label>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
+
 
                     <!--  -->
                     <div class="mb-4">
@@ -106,12 +64,16 @@
                                 class="border bg-white cursor-pointer rounded-md py-2 px-4 ml-2 increase-quantity">+</span>
                         </div>
                     </div>
-                    <div>
-                        <span class="font-bold text-gray-700">Mô tả:</span>
-                        <p class="text-gray-600 text-sm mt-2">
-                            <?php echo $sanPhamCt["mo_ta"]; ?>
-                        </p>
-                    </div>
+
+                    <!-- mô tả -->
+                    <?php if (!empty($sanPhamCt["mo_ta"])) { ?>
+                        <div>
+                            <span class="font-bold text-gray-700">Mô tả:</span>
+                            <p class="text-gray-600 text-sm mt-2">
+                                <?php echo $sanPhamCt["mo_ta"]; ?>
+                            </p>
+                        </div>
+                    <?php } ?>
                 </div>
             </form>
         </div>
@@ -216,7 +178,7 @@
                  </div>
                  
                  <del class="mt-1 text-[#929292] text-sm leading-4 text-left">' . number_format($value["gia_sale"], 0, ".", ",") . ' đ</del>
-                 <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . ' cuốn</div> 
+                 <div class="text-xs leading-5 text-[#2F80ED] my-1">Đã bán ' . $value["luot_ban"] . ' </div> 
                  <div class="mt-2 flex items-center">
                      <img src="https://file.hstatic.net/200000785527/file/label_img_1_ddaf3d6b446745c9a0052f99fd888209.png"
                          class="w-[18px] h-[18px]" alt="">
@@ -229,7 +191,7 @@
                  <div>
                      <span class="font-bold text-[#FF0000] leading-6 text-left pr-2">' . number_format($value["gia"], 0, ".", ",") . ' đ</span>
                  </div>
-                 <div class="text-xs leading-5 text-[#2F80ED] mt-6">Đã bán ' . $value["luot_ban"] . ' cuốn</div> 
+                 <div class="text-xs leading-5 text-[#2F80ED] mt-6">Đã bán ' . $value["luot_ban"] . ' </div> 
                  ';
                         echo '</div>';
                     }

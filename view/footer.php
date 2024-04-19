@@ -4,8 +4,8 @@
 
         <div class="grid grid-cols-12 pt-12">
             <div class="px-3 xl:col-span-6 lg:col-span-6 md:col-span-7 sm:col-span-12 col-span-12">
-                <div class="text-lg text-[#C92127] font-bold">
-                    stripe
+                <div>
+                    <a href="index.php"><img class="w-16 cursor-pointer" src="./image/view/logo.jpg" alt="..."></a>
                 </div>
                 <div class="text-sm text-[#424242]">Hotline: 1900.636.099</div>
                 <div class="text-sm text-[#424242]">
@@ -57,7 +57,7 @@
 
         <hr class="my-4" />
         <div class="text-center text-sm leading-4 text-[#424242] pb-4">
-            Bản quyền thuộc về Nhóm 8. Fpoly
+            Bản quyền thuộc về ...
         </div>
     </div>
 </footer>

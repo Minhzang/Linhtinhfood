@@ -67,16 +67,7 @@
                         Mô tả
                     </th>
                     <th scope="col" class="px-6 py-3" style="width: 10%">
-                        Tên tác giả
-                    </th>
-                    <!-- <th scope="col" class="px-6 py-3" style="width: 8%">
-                        Ngày đăng bán
-                    </th> -->
-                    <th scope="col" class="px-6 py-3" style="width: 10%">
                         Tên danh mục
-                    </th>
-                    <th scope="col" class="px-6 py-3" style="width: 10%">
-                        Tên nhà sản xuất
                     </th>
                     <th scope="col" class="px-6 py-3" style="width: 10%">
                         #
@@ -84,12 +75,8 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <td class="px-3 py-3">' . $value["created_at"] . '</td> -->
-
                 <?php
                 foreach ($list_Sach as $key => $value) {
-                    $list_tacgia_sach_spct = list_tacgia_sach_spct($value["id"]);
-
                     echo '
         <tr class="bg-white border-b text-black hover:bg-gray-100">
             <td class="w-4 p-4">' . $value["id"] . '</td>
@@ -98,18 +85,11 @@
             <td class="px-3 py-3">' . number_format(floatval($value["gia"]), 0, ".", ",") . '</td>
             <td class="px-3 py-3">' . number_format(floatval($value["gia_sale"]), 0, ".", ",") . '</td>
             <td class="px-3 line-clamp-6">' . $value["mo_ta"] . '</td>
-            <td class="px-3 py-3">';
-
-                    foreach ($list_tacgia_sach_spct as $key_tacgia => $value_tacgia) {
-                        echo $value_tacgia["tac_gia_name"] . ", ";
-                    }
-                    echo '</td>
+           
             <td class="px-3 py-3">' . $value["danh_muc_name"] . '</td>
-            <td class="px-3 py-3">' . $value["nha_san_xua_name"] . '</td>
             <td class="flex flex-col px-3 py-3">
-            <a href="index.php?act=editSp&id=' . $value["id"] . '" class="font-medium text-blue-600 hover:underline">Edit</a> <br>
-            <a href="index.php?act=deleteSp&id=' . $value["id"] . '" onclick="return confirm(\'Bạn muốn xóa ?\')" class="font-medium text-red-600  hover:underline">Remove</a><br>
-            <a href="index.php?act=BiaSach&id=' . $value["id"] . '" class="font-medium text-blue-600 hover:underline">Thêm bìa</a>
+            <a href="index.php?act=editSp&id=' . $value["id"] . '" class="font-medium text-blue-600 hover:underline">Sửa</a> <br>
+            <a href="index.php?act=deleteSp&id=' . $value["id"] . '" onclick="return confirm(\'Bạn muốn xóa ?\')" class="font-medium text-red-600  hover:underline">Xóa</a><br>
         </td>
         </tr>';
                 }
