@@ -1,11 +1,4 @@
 <?php
-// function insert_sach($tenSanPham, $tacGia_id, $danh_muc_id, $nha_san_xuat_id, $img, $gia, $gia_sale, $mo_ta, $created_at)
-// {
-//     $sql = "INSERT INTO products(ten, tacGia_id, danh_muc_id, nha_san_xuat_id, img, gia, gia_sale, mo_ta, created_at) 
-//     VALUES 
-//     ('$tenSanPham', '$tacGia_id', '$danh_muc_id', '$nha_san_xuat_id', '$img', '$gia', '$gia_sale', '$mo_ta', '$created_at')";
-//     pdo_execute($sql);
-// }
 function insert_sach(
     $tenSanPham,
     $danhMucId,
@@ -94,11 +87,7 @@ function list_sach_banchay_home()
         JOIN danh_muc ON danh_muc.id = products.danh_muc_id 
         ORDER BY products.luot_ban DESC
         LIMIT 5;";
-    // SELECT products.id, products.tacGia_id, products.ten, products.img, products.gia, products.danh_muc_id, products.gia_sale, products.mo_ta, products.created_at, tac_gia.name AS tac_gia_name, danh_muc.name AS danh_muc_name, nha_san_xua.name AS nha_san_xua_name 
-    // FROM products 
-    // JOIN tac_gia ON tac_gia.id = products.tacGia_id 
-    // JOIN danh_muc ON danh_muc.id = products.danh_muc_id 
-    // JOIN nha_san_xua ON nha_san_xua.id = products.nha_san_xuat_id   
+   
     $listSach = pdo_query($sql);
     return $listSach;
 }
