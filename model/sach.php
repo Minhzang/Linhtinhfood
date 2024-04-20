@@ -10,15 +10,7 @@ function insert_sach(
 ) {
     $sql = "INSERT INTO products( ten, danh_muc_id,  img, gia, gia_sale, mo_ta, created_at) 
     VALUES ('$tenSanPham','$danhMucId','$filename','$gia','$giaSale','$moTa',' $created_at')";
-    // echo $sql;
-    // die;
     return pdo_execute_return_lastInsertId($sql);
-}
-function insert_sach_tac_gia($sachId, $tacGiaId)
-{
-    $sql = "INSERT INTO produt_tac_gia (product_id, tac_gia_id) 
-            VALUES ('$sachId', '$tacGiaId')";
-    pdo_execute($sql);
 }
 function delete_sach($id)
 {
@@ -61,7 +53,6 @@ function list_All_home_sach($danh_muc_id, $searchSp, $tacGia_id)
     }
 
     $sql .= " ORDER BY products.id DESC";
-    // echo $sql; die;
     $listSach = pdo_query($sql);
     return $listSach;
 }
@@ -87,7 +78,7 @@ function list_sach_banchay_home()
         JOIN danh_muc ON danh_muc.id = products.danh_muc_id 
         ORDER BY products.luot_ban DESC
         LIMIT 5;";
-   
+
     $listSach = pdo_query($sql);
     return $listSach;
 }
@@ -143,29 +134,7 @@ function update_sanpham_KhongHinhAnh($id, $tenSanPham, $danhMucId, $gia, $giaSal
     gia_sale='$giaSale',
     mo_ta='$moTa' 
      WHERE  id='$id'";
-    // echo $sql;
-    // die;
     pdo_execute($sql);
 
-}
-function list_tacgia_sach_spct($id)
-{
-    $sql = "SELECT tac_gia.name AS tac_gia_name, tac_gia.id
-    FROM products
-    JOIN produt_tac_gia ON produt_tac_gia.product_id = products.id
-    JOIN tac_gia ON produt_tac_gia.tac_gia_id = tac_gia.id
-    WHERE products.id = $id";
-    $tg_spct = pdo_query($sql);
-    return $tg_spct;
-}
-
-function list_tacgia_sach($id)
-{
-    $sql = "SELECT tac_gia.id, produt_tac_gia.id as 'tac_gia_id' FROM products 
- JOIN produt_tac_gia on products.id = produt_tac_gia.product_id
- JOIN tac_gia on tac_gia.id = produt_tac_gia.tac_gia_id
- WHERE products.id =$id";
-    $tg_spct = pdo_query($sql);
-    return $tg_spct;
 }
 ?>

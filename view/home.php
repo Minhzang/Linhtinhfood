@@ -221,8 +221,6 @@
             <div class="col-span-5 border-r-4 border-gray-500-500">
                 <?php
                 foreach ($list_sach_banchay_home as $key => $value) {
-                    $list_tacgia_sach_spct = list_tacgia_sach_spct($value["id"]);
-
                     echo '<div class="w-[520px] h-[120px]">
                     <div class="flex py-2">
                         <div class="flex justify-between items-center px-4">' . $key + 1 . '</div>

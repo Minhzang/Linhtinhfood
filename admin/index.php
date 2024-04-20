@@ -112,7 +112,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                     $danh_muc_id = "";
                 }
                 $listDm = list_danhmuc("");
-                $listTg = list_tac_gia("");
                 $list_Sach = list_sach($danh_muc_id, $searchSP);
                 include ("sach/sach.php");
                 break;
@@ -161,16 +160,6 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
                         $thongbao = "Thêm thành công!";
                     }
 
-                    // Lưu thông tin về tác giả
-                    if (!empty($_POST['tacGia_id'])) {
-                        $tacGiaIds = $_POST['tacGia_id'];
-                        foreach ($tacGiaIds as $tacGiaId) {
-                            insert_sach_tac_gia($sachId, $tacGiaId);
-                        }
-                    } else {
-                        $isCheck = false;
-                        $ErrTg = "Cần nhập Tên Tác giả";
-                    }
                 }
                 $listDm = list_danhmuc("");
 

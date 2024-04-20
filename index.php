@@ -70,9 +70,6 @@ if (isset($_GET["act"])) {
             if ((isset($_GET["idsp"])) && ($_GET["idsp"]) > 0) {
                 $id = $_GET["idsp"];
                 $sanPhamCt = select_spct($id);
-                $list_tacgia_sach_spct = list_tacgia_sach_spct($id);
-
-
                 $sach_cungLoai = Select_sach_cungLoai($id, $sanPhamCt["danh_muc_id"]);
             } else {
                 include ("view/home.php");
