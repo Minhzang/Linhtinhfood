@@ -5,7 +5,6 @@ include ("./model/connect.php");
 include ("./model/danhmuc.php");
 include ("./model/sach.php");
 include ("./model/taiKhoan.php");
-include ("./model/tacGia.php");
 include ("./model/giohang.php");
 
 

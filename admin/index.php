@@ -5,12 +5,9 @@ if (isset($_SESSION['user']) && $_SESSION['user']['is_admin'] == 1) {
 
     include ("../model/connect.php");
     include ("../model/danhmuc.php");
-    include ("../model/nhaXuatBan.php");
-    include ("../model/tacGia.php");
     include ("../model/acc.php");
     include ("../model/binhLuan.php");
     include ("../model/sach.php");
-    include ("../model/bia.php");
     include ("../model/giohang.php");
     include ("../model/thongke.php");
 
